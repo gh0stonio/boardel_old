@@ -6,9 +6,37 @@
   "author": "gh0stonio <antoine.leveque.pro@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "commit": "git-cz",
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "release": "bump --commit \"chore: release v%s\" --tag --push --all"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "tsc --noEmit -p . && lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "prettier": {
+    "semi": false,
+    "trailingComma": "all",
+    "singleQuote": true,
+    "printWidth": 135,
+    "tabWidth": 2
   },
   "dependencies": {
     "next": "^9.1.4",
@@ -17,10 +45,24 @@
     "styled-components": "^4.4.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
     "@types/node": "^12.12.14",
     "@types/react": "^16.9.15",
     "@types/styled-components": "^4.4.0",
+    "@typescript-eslint/eslint-plugin": "^2.10.0",
+    "@typescript-eslint/parser": "^2.10.0",
     "babel-plugin-styled-components": "^1.10.6",
-    "typescript": "^3.7.3"
+    "conventional-changelog-cli": "^2.0.28",
+    "cz-conventional-changelog": "^3.0.2",
+    "eslint": "^6.7.2",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.17.0",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1",
+    "typescript": "^3.7.3",
+    "version-bump-prompt": "^5.0.6"
   }
 }

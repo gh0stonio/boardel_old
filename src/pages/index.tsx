@@ -24,10 +24,10 @@ const WIP = styled.img`
   }
 `
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
     <Wrapper>
-      <WIP src='/WIP.png' alt='work in progress' />
+      <WIP src="/WIP.png" alt="work in progress" />
     </Wrapper>
   )
 }
