@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import Document, { DocumentContext } from 'next/document'
+import Document, { DocumentContext, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
 export default class MyDocument extends Document {
@@ -26,5 +26,21 @@ export default class MyDocument extends Document {
     } finally {
       sheet.seal()
     }
+  }
+
+  render() {
+    return (
+      <html lang="en">
+        <Head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="description" content="Organize the 'bordel' in your mind as nice todos with BoardEL" />
+        </Head>
+        <body className="sans-serif">
+          <Main />
+          <NextScript />
+        </body>
+      </html>
+    )
   }
 }
