@@ -7,6 +7,7 @@ const theme = {
   colors: {
     grey: '#f7f7f7',
     darkGrey: '#dfe2f3',
+    blue: '#5779ff',
     white: '#ffffff',
     font: {
       title: '#676879',
@@ -20,7 +21,11 @@ const theme = {
 }
 const GlobalStyle = createGlobalStyle`
   body {
-    margin: 0;
+    margin: 0;    
+  }
+
+  * {
+    font-family: 'Roboto', sans-serif;
   }
 `
 
