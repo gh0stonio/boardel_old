@@ -11,11 +11,28 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 `
-
 const Container = styled.div`
   flex: 11;
   padding: 0.8rem 0;
   overflow-y: scroll;
+`
+
+const AddTask = styled.div`
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: ${({ theme }) => theme.colors.blue};
+  border-radius: 50%;
+  box-shadow: 2px 2px 5px ${({ theme }) => theme.colors.darkGrey};
+
+  svg {
+    position: absolute;
+    left: 8%;
+    top: 8%;
+    fill: ${({ theme }) => theme.colors.white};
+  }
 `
 
 /* TASK STYLES */
@@ -235,6 +252,19 @@ const IntegrationPage: React.FC = () => {
         <Task category="professional" />
         <Task category="professional" />
       </Container>
+      <AddTask>
+        <svg viewBox="0 0 100 100" width="3rem" height="3rem">
+          <path
+            style={{
+              textIndent: 0,
+              textTransform: 'none',
+            }}
+            d="M50 23a4 4 0 00-4 4v19H27a4 4 0 100 8h19v19a4 4 0 108 0V54h19a4 4 0 100-8H54V27a4 4 0 00-4-4z"
+            overflow="visible"
+            color="#000"
+          />
+        </svg>
+      </AddTask>
     </Wrapper>
   )
 }
