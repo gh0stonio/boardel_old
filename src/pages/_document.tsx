@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Document, { DocumentContext, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
 
