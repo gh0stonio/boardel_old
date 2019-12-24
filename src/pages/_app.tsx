@@ -1,12 +1,16 @@
+import moment from 'moment'
 import App from 'next/app'
 import Head from 'next/head'
 import React from 'react'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 
+moment.locale('en')
+
 const theme = {
   colors: {
     grey: '#f7f7f7',
     darkGrey: '#dfe2f3',
+    darkestGrey: '#a8abbb',
     blue: '#5779ff',
     white: '#ffffff',
     font: {
