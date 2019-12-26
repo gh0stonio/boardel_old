@@ -1,8 +1,13 @@
 import React from 'react'
 
 import { Container, SuccessIcon, SuccessText } from './styles'
+import { useStore } from '../../hooks/useStore'
 
 const Empty: React.FC = () => {
+  const {
+    state: { isToday },
+  } = useStore()
+
   return (
     <Container>
       <SuccessIcon viewBox="0 0 67 83.75" height="10rem" width="10rem">
@@ -12,7 +17,7 @@ const Empty: React.FC = () => {
       <SuccessText>
         Yeah \o/
         <br />
-        No more tasks for today
+        No more tasks for {isToday ? 'today' : 'this day'}.
       </SuccessText>
     </Container>
   )

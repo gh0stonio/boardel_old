@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 import Header from '../components/header'
 import Empty from '../components/empty'
+import { StoreProvider } from '../hooks/useStore'
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.grey};
@@ -21,12 +22,14 @@ const TasksContainer = styled.div`
 
 const Home: React.FC = () => {
   return (
-    <Wrapper>
-      <Header />
-      <TasksContainer>
-        <Empty />
-      </TasksContainer>
-    </Wrapper>
+    <StoreProvider>
+      <Wrapper>
+        <Header />
+        <TasksContainer>
+          <Empty />
+        </TasksContainer>
+      </Wrapper>
+    </StoreProvider>
   )
 }
 
