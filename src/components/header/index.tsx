@@ -26,7 +26,7 @@ const Header: React.FC = () => {
   const weekDays: moment.Moment[] = useMemo(() => {
     const days = []
 
-    for (let i = 1; i < 8; i++) days.push(moment().day(i))
+    for (let i = 1; i < 8; i++) days.push(moment().isoWeekday(i))
 
     return days
   }, [])
