@@ -1,23 +1,34 @@
 import styled, { css } from 'styled-components'
 
-export const Container = styled.div`
-  flex-basis: 9rem;
+// impossible to type successfully with attrs
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const Container = styled.div.attrs(({ extraHeight }: { extraHeight: number }): any => ({
+  style: {
+    height: `calc(9rem + ${extraHeight}rem)`,
+  },
+}))`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: calc(100% - 1.6rem);
+  min-height: 9rem;
   display: flex;
   flex-direction: column;
   z-index: 1;
   padding: 0.8rem;
-  flex: row;
   background-color: ${({ theme }) => theme.colors.white};
   border-bottom-left-radius: 1.25rem;
   border-bottom-right-radius: 1.25rem;
   box-shadow: 0px 2px 5px ${({ theme }) => theme.colors.darkGrey};
+  touch-action: none;
 `
 
 /**
  * TOP SECTION
  */
 export const Top = styled.div`
-  flex-basis: 2.25rem;
+  min-height: 2.25rem;
+  max-height: 2.25rem;
   position: relative;
   text-align: center;
 `
@@ -41,31 +52,45 @@ export const TodayCalendar = styled.svg`
 `
 
 /**
+ * EXTANDABLE WRAPPER
+ */
+export const ExtandableWrapper = styled.div`
+  position: relative;
+  height: inherit;
+`
+
+/**
  * CALENDAR
  */
-export const WeekCalendar = styled.div`
-  flex: 1;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const Calendar = styled.div.attrs(({ extraHeight }: { extraHeight: number }): any => ({
+  style: {
+    height: `calc(6rem + ${extraHeight}rem)`,
+  },
+}))`
   display: flex;
   flex-direction: column;
   text-align: center;
 `
 export const DaysNamesBlock = styled.div`
-  flex: 1;
+  min-height: 2.8rem;
   display: flex;
   flex-direction: row;
 `
-export const DaysNameItem = styled.div`
+export const DaysNameItem = styled.div<{ isWeekendDay?: boolean }>`
   flex: 1;
   margin: auto;
-  color: ${({ theme }) => theme.colors.font.content};
+  color: ${({ isWeekendDay, theme }) => (isWeekendDay ? theme.colors.darkGrey : theme.colors.font.content)};
   font-size: 0.9rem;
 `
 export const DaysNumbersBlock = styled.div`
-  flex: 1;
+  min-height: 2.8rem;
   display: flex;
   flex-direction: row;
 `
-export const DaysNumberItem = styled.div<{ active?: boolean }>`
+export const DaysNumberItem = styled.div.attrs(({ active }: { active?: boolean }) => ({
+  active,
+}))`
   flex: 1;
   position: relative;
   margin: auto;
@@ -95,13 +120,16 @@ export const DaysNumberItem = styled.div<{ active?: boolean }>`
  * BOTTOM SECTION
  */
 export const Bottom = styled.div`
-  flex-basis: 1rem;
-  position: relative;
+  position: absolute;
+  bottom: -1rem;
+  width: 100%;
+  height: 2.4rem;
 
   &:after {
     content: '';
     position: absolute;
     left: 45%;
+    bottom: 1rem;
     background: ${({ theme }) => theme.colors.darkGrey};
     width: 10%;
     height: 0.25rem;

@@ -9,15 +9,13 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.grey};
   width: 100%;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
 `
 
 const TasksContainer = styled.div`
-  height: 100%;
+  height: calc(100% - 10.6rem);
   width: 100%;
   position: relative;
-  flex: 1;
+  padding-top: 10.6rem;
 `
 
 const Home: React.FC = () => {

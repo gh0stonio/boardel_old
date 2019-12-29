@@ -15,7 +15,7 @@ const theme = {
     white: '#ffffff',
     font: {
       title: '#676879',
-      content: '#ababb3',
+      content: '#a4a4a9',
     },
     categories: {
       personal: '#00b0d4',
