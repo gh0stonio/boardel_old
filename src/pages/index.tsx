@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import React from 'react'
+import Router from 'next/router'
 import styled from 'styled-components'
 
 import Header from '../components/header'
@@ -22,7 +22,10 @@ const TasksContainer = styled.div`
 const Home: NextPage = () => {
   const user = useAuth()
 
-  if (!user) return null
+  if (!user) {
+    if (process.browser) Router.push('/auth')
+    return null
+  }
 
   return (
     <Wrapper>

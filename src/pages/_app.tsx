@@ -5,7 +5,6 @@ import React from 'react'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 
 import { StoreProvider } from '../hooks/useStore'
-import { logAnonymously } from '../utils/auth'
 
 moment.locale('en')
 
@@ -44,11 +43,6 @@ export default class MyApp extends App {
     if (Component.getInitialProps) pageProps = await Component.getInitialProps(ctx)
 
     return { pageProps }
-  }
-
-  constructor(props) {
-    super(props)
-    if (process.browser) logAnonymously()
   }
 
   render() {
