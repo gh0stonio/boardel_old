@@ -13,9 +13,10 @@ const theme = {
     darkestGrey: '#a8abbb',
     blue: '#5779ff',
     white: '#ffffff',
+    black: '#000000',
     font: {
       title: '#676879',
-      content: '#ababb3',
+      content: '#a4a4a9',
     },
     categories: {
       personal: '#00b0d4',
