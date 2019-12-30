@@ -56,26 +56,30 @@ const Header: React.FC = () => {
   /**
    * Calendar data
    */
-  const goToToday = useCallback(() => dispatch(changeDate(moment())), [changeDate, dispatch])
+  const goToToday = useCallback(() => {
+    setExtraHeight(0)
+    setIsOpen(false)
+    dispatch(changeDate(moment()))
+  }, [changeDate, dispatch])
   const weekDays: moment.Moment[] = useMemo(() => {
     const days = []
 
-    for (let i = 1; i < 8; i++) days.push(moment().isoWeekday(i))
+    for (let i = 1; i < 8; i++) days.push(moment(selectedDate).isoWeekday(i))
 
     return days
-  }, [])
+  }, [selectedDate])
   const monthDays: Array<moment.Moment | null> = useMemo(() => {
     const days = []
-    const daysInMonth = moment().daysInMonth()
+    const daysInMonth = moment(selectedDate).daysInMonth()
 
-    for (let i = 1; i < daysInMonth + 1; i++) days.push(moment().date(i))
+    for (let i = 1; i < daysInMonth + 1; i++) days.push(moment(selectedDate).date(i))
 
     const isoWeekdayOfFirstMonthDay = days[0].isoWeekday()
     for (let i = 1; i < isoWeekdayOfFirstMonthDay; i++) days.splice(0, 0, null)
     for (let i = days.length; i < 42; i++) days.splice(i, 0, null)
 
     return days
-  }, [])
+  }, [selectedDate])
   const daysNames = useMemo(
     () =>
       weekDays.map(day => {
@@ -100,7 +104,11 @@ const Header: React.FC = () => {
             if (!day) return <DaysNumberItem key={`${monthIndex}_${dayIndex}`} />
 
             const number = day.format('D')
-            const onClick = () => dispatch(changeDate(day))
+            const onClick = () => {
+              setExtraHeight(0)
+              setIsOpen(false)
+              dispatch(changeDate(day))
+            }
 
             return (
               <DaysNumberItem key={`${monthIndex}_${dayIndex}`} active={day.isSame(selectedDate, 'day')} onClick={onClick}>
