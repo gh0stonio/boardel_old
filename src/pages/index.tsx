@@ -1,9 +1,10 @@
+import { NextPage } from 'next'
 import React from 'react'
 import styled from 'styled-components'
 
 import Header from '../components/header'
 import Empty from '../components/empty'
-import { StoreProvider } from '../hooks/useStore'
+import useAuth from '../hooks/useAuth'
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.grey};
@@ -18,16 +19,18 @@ const TasksContainer = styled.div`
   padding-top: 10.6rem;
 `
 
-const Home: React.FC = () => {
+const Home: NextPage = () => {
+  const user = useAuth()
+
+  if (!user) return null
+
   return (
-    <StoreProvider>
-      <Wrapper>
-        <Header />
-        <TasksContainer>
-          <Empty />
-        </TasksContainer>
-      </Wrapper>
-    </StoreProvider>
+    <Wrapper>
+      <Header />
+      <TasksContainer>
+        <Empty />
+      </TasksContainer>
+    </Wrapper>
   )
 }
 

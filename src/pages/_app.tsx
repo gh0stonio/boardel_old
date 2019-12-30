@@ -4,6 +4,9 @@ import Head from 'next/head'
 import React from 'react'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 
+import { StoreProvider } from '../hooks/useStore'
+import { logAnonymously } from '../utils/auth'
+
 moment.locale('en')
 
 const theme = {
@@ -43,16 +46,24 @@ export default class MyApp extends App {
     return { pageProps }
   }
 
+  constructor(props) {
+    super(props)
+    if (process.browser) logAnonymously()
+  }
+
   render() {
     const { Component, pageProps } = this.props
 
     return (
       <ThemeProvider theme={theme}>
-        <Head>
-          <title>BoardEL</title>
-        </Head>
-        <GlobalStyle />
-        <Component {...pageProps} />
+        <StoreProvider>
+          <Head>
+            <title>BoardEL</title>
+            <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.3.0/firebase-ui-auth.css" />
+          </Head>
+          <GlobalStyle />
+          <Component {...pageProps} />
+        </StoreProvider>
       </ThemeProvider>
     )
   }
