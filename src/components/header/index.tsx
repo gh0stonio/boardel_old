@@ -68,15 +68,31 @@ const Header: React.FC = () => {
 
     return days
   }, [selectedDate])
-  const monthDays: Array<moment.Moment | null> = useMemo(() => {
+  const monthDays: moment.Moment[] = useMemo(() => {
     const days = []
     const daysInMonth = moment(selectedDate).daysInMonth()
 
     for (let i = 1; i < daysInMonth + 1; i++) days.push(moment(selectedDate).date(i))
 
     const isoWeekdayOfFirstMonthDay = days[0].isoWeekday()
-    for (let i = 1; i < isoWeekdayOfFirstMonthDay; i++) days.splice(0, 0, null)
-    for (let i = days.length; i < 42; i++) days.splice(i, 0, null)
+    for (let i = 1; i < isoWeekdayOfFirstMonthDay; i++)
+      days.splice(
+        0,
+        0,
+        moment(days[0])
+          .clone()
+          .subtract(i, 'days'),
+      )
+    const nbrToFill = 42 - days.length
+    for (let i = 1; i <= nbrToFill; i++) {
+      days.splice(
+        days.length,
+        0,
+        moment(days[days.length - 1])
+          .clone()
+          .add(1, 'days'),
+      )
+    }
 
     return days
   }, [selectedDate])
@@ -84,11 +100,7 @@ const Header: React.FC = () => {
     () =>
       weekDays.map(day => {
         const name = day.format('dd')
-        return (
-          <DaysNameItem key={name} isWeekendDay={day.isoWeekday() === 6 || day.isoWeekday() === 7}>
-            {name.charAt(0).toUpperCase()}
-          </DaysNameItem>
-        )
+        return <DaysNameItem key={name}>{name.charAt(0).toUpperCase()}</DaysNameItem>
       }),
     [weekDays],
   )
@@ -101,8 +113,6 @@ const Header: React.FC = () => {
       return (
         <DaysNumbersBlock key={monthIndex}>
           {week.map((day, dayIndex) => {
-            if (!day) return <DaysNumberItem key={`${monthIndex}_${dayIndex}`} />
-
             const number = day.format('D')
             const onClick = () => {
               setExtraHeight(0)
@@ -111,7 +121,12 @@ const Header: React.FC = () => {
             }
 
             return (
-              <DaysNumberItem key={`${monthIndex}_${dayIndex}`} active={day.isSame(selectedDate, 'day')} onClick={onClick}>
+              <DaysNumberItem
+                key={`${monthIndex}_${dayIndex}`}
+                extra={!day.isSame(selectedDate, 'month')}
+                active={day.isSame(selectedDate, 'day')}
+                onClick={onClick}
+              >
                 {number}
               </DaysNumberItem>
             )

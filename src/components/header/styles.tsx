@@ -77,10 +77,10 @@ export const DaysNamesBlock = styled.div`
   display: flex;
   flex-direction: row;
 `
-export const DaysNameItem = styled.div<{ isWeekendDay?: boolean }>`
+export const DaysNameItem = styled.div`
   flex: 1;
   margin: auto;
-  color: ${({ isWeekendDay, theme }) => (isWeekendDay ? theme.colors.darkGrey : theme.colors.font.content)};
+  color: ${({ theme }) => theme.colors.font.content};
   font-size: 0.9rem;
 `
 export const DaysNumbersBlock = styled.div`
@@ -88,13 +88,16 @@ export const DaysNumbersBlock = styled.div`
   display: flex;
   flex-direction: row;
 `
-export const DaysNumberItem = styled.div.attrs(({ active }: { active?: boolean }) => ({
+export const DaysNumberItem = styled.div.attrs(({ active, extra }: { active?: boolean; extra?: boolean }) => ({
   active,
+  extra,
 }))`
   flex: 1;
   position: relative;
   margin: auto;
   font-size: 0.9rem;
+
+  color: ${({ extra, theme }) => (extra ? theme.colors.darkGrey : theme.colors.black)};
 
   ${({ active }) =>
     active &&
