@@ -9,11 +9,11 @@ import { Loader } from '../components/shared'
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.grey};
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 10rem);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 50%;
+  padding-top: 10rem;
 `
 
 const LoginText = styled.div`
