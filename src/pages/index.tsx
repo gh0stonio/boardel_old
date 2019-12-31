@@ -3,7 +3,7 @@ import Router from 'next/router'
 import styled from 'styled-components'
 
 import Header from '../components/header'
-import Empty from '../components/empty'
+import List from '../components/list'
 import useAuth from '../hooks/useAuth'
 
 const Wrapper = styled.div`
@@ -13,7 +13,6 @@ const Wrapper = styled.div`
 `
 
 const TasksContainer = styled.div`
-  height: calc(100% - 10.6rem);
   width: 100%;
   position: relative;
   padding-top: 10.6rem;
@@ -31,7 +30,7 @@ const Home: NextPage = () => {
     <Wrapper>
       <Header />
       <TasksContainer>
-        <Empty />
+        <List />
       </TasksContainer>
     </Wrapper>
   )

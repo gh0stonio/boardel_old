@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50%;
+  padding-top: 50%;
 `
 
 export const SuccessIcon = styled.svg`

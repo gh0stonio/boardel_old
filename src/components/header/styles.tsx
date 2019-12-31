@@ -108,12 +108,12 @@ export const DaysNumberItem = styled.div.attrs(({ active, extra }: { active?: bo
         content: '';
         padding: 0.3125rem;
         position: absolute;
-        left: 18%;
+        left: 17%;
         background: #5779ff;
         width: 45%;
-        height: 150%;
+        height: 155%;
         border-radius: 40%;
-        margin-top: -0.5625rem;
+        margin-top: -0.6625rem;
         z-index: -1;
       }
     `}
