@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-import { Category } from '.'
-
 export const TaskContainer = styled.div`
   position: relative;
   background-color: ${({ theme }) => theme.colors.white};

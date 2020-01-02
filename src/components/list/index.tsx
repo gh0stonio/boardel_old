@@ -6,7 +6,7 @@ import useAuth from '../../hooks/useAuth'
 import { useStore } from '../../hooks/useStore'
 import { Loader } from '../shared'
 import Empty from '../empty'
-import Task, { TaskType } from '../task'
+import Task from '../task'
 import { LoaderWrapper, Wrapper } from './styles'
 
 const List: React.FC = () => {
@@ -15,7 +15,7 @@ const List: React.FC = () => {
     state: { selectedDate },
   } = useStore()
   const [loading, setLoading] = useState(true)
-  const [tasks, setTasks] = useState<TaskType[]>([])
+  const [tasks, setTasks] = useState<Task[]>([])
 
   useEffect(() => {
     setLoading(true)
@@ -31,10 +31,8 @@ const List: React.FC = () => {
           const data = doc.data()
 
           tasksDocs.push({
+            ...data,
             id: doc.id,
-            description: data.description,
-            label: data.label,
-            isPostpone: data.isPostpone,
             date: moment(data.date),
           })
         })

@@ -15,9 +15,19 @@ exports.postponeTasksFunction = functions.pubsub
     const startDate = moment(context.timestamp)
       .startOf('day')
       .toDate()
-    const updatedDate = moment()
+    // today
+    const updatedDateForPersonalTasks = moment()
       .startOf('day')
       .toDate()
+    // today or next monday if weekend
+    const updatedDateForProfessionalTasks =
+      moment().isoWeekday() < 6
+        ? updatedDateForPersonalTasks
+        : moment()
+            .add(1, 'weeks')
+            .isoWeekday(1)
+            .startOf('day')
+            .toDate()
 
     db.collection('users')
       .get()
@@ -27,12 +37,16 @@ exports.postponeTasksFunction = functions.pubsub
             .doc(userDoc.id)
             .collection('tasks')
             .where('date', '<', startDate)
+            .where('isDone', '==', false)
             .get()
             .then(querySnapshot => {
               querySnapshot.forEach(taskDoc => {
-                console.log('updating task ', taskDoc.id, ' => new date', updatedDate)
+                const data = taskDoc.data()
+                const newDate = data.category === 'personal' ? updatedDateForPersonalTasks : updatedDateForProfessionalTasks
+
+                console.log(`updating task ${taskDoc.id} - [cat. ${data.category}] => new date ${newDate}`)
                 taskDoc.ref.update({
-                  date: updatedDate,
+                  date: newDate,
                   isPostpone: true,
                 })
               })
