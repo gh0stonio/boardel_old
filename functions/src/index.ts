@@ -6,24 +6,24 @@ moment.locale('en')
 admin.initializeApp(functions.config().firebase)
 
 exports.postponeTasksFunction = functions.pubsub
-  .schedule('every day 00:01')
+  .schedule('every day 01:30')
   .timeZone('Europe/Paris')
   .onRun(context => {
-    console.log('----- postponing all previous & unfinished tasks every day at 00:01 !')
+    console.log('----- postponing all previous & unfinished tasks every day at 01:30 !')
 
     const db = admin.firestore()
     const startDate = moment(context.timestamp)
       .startOf('day')
       .toDate()
     // today
-    const updatedDateForPersonalTasks = moment()
+    const updatedDateForPersonalTasks = moment(context.timestamp)
       .startOf('day')
       .toDate()
     // today or next monday if weekend
     const updatedDateForProfessionalTasks =
-      moment().isoWeekday() < 6
+      moment(context.timestamp).isoWeekday() < 6
         ? updatedDateForPersonalTasks
-        : moment()
+        : moment(context.timestamp)
             .add(1, 'weeks')
             .isoWeekday(1)
             .startOf('day')
