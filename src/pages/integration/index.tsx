@@ -1,7 +1,6 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
 
-type Category = 'personal' | 'professional'
+import styled, { css } from '../../utils/styled'
 
 /* PAGE STYLES */
 const Wrapper = styled.div`
@@ -243,14 +242,14 @@ const IntegrationPage: React.FC = () => {
     <Wrapper>
       <Header />
       <Container>
-        <Task category="personal" />
-        <Task category="personal" />
-        <Task category="professional" />
-        <Task category="personal" />
-        <Task category="professional" />
-        <Task category="personal" />
-        <Task category="professional" />
-        <Task category="professional" />
+        <Task category={Category.personal} />
+        <Task category={Category.personal} />
+        <Task category={Category.professional} />
+        <Task category={Category.personal} />
+        <Task category={Category.professional} />
+        <Task category={Category.personal} />
+        <Task category={Category.professional} />
+        <Task category={Category.professional} />
       </Container>
       <AddTask>
         <svg viewBox="0 0 100 100" width="3rem" height="3rem">

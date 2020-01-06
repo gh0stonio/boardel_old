@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import styled from '../../utils/styled'
+import { SuccessIcon } from '../icons'
 
 export const Container = styled.div`
   display: flex;
@@ -7,7 +8,7 @@ export const Container = styled.div`
   padding-top: 50%;
 `
 
-export const SuccessIcon = styled.svg`
+export const StyledSuccessIcon = styled(SuccessIcon)`
   fill: ${({ theme }) => theme.colors.darkestGrey};
 `
 

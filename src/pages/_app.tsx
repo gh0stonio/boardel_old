@@ -2,43 +2,11 @@ import moment from 'moment'
 import App from 'next/app'
 import Head from 'next/head'
 import React from 'react'
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
 
 import { StoreProvider } from '../hooks/useStore'
+import { GlobalStyle, ThemeProvider, theme } from '../utils/styled'
 
 moment.locale('en')
-
-const theme = {
-  colors: {
-    grey: '#f7f7f7',
-    darkGrey: '#dfe2f3',
-    darkestGrey: '#a8abbb',
-    blue: '#5779ff',
-    white: '#ffffff',
-    black: '#000000',
-    font: {
-      title: '#676879',
-      content: '#a4a4a9',
-    },
-    categories: {
-      personal: '#00b0d4',
-      professional: '#33ce78',
-    },
-    actions: {
-      postpone: '#ff9a2c',
-      done: '#59ad66',
-    },
-  },
-}
-const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;    
-  }
-
-  * {
-    font-family: 'Roboto', sans-serif;
-  }
-`
 
 export default class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {

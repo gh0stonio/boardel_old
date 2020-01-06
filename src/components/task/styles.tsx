@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import styled from '../../utils/styled'
+import { DoneIcon, PostponeIcon } from '../icons'
 
 export const TaskContainer = styled.div`
   position: relative;
@@ -72,4 +73,10 @@ export const PostponeContent = styled(SideElementContent)`
 export const DoneContent = styled(SideElementContent)`
   background-color: ${({ theme }) => theme.colors.actions.done};
   margin: 0.7rem 1rem 0.7rem -0.5rem;
+`
+export const StyledDoneIcon = styled(DoneIcon)`
+  fill: ${({ theme }) => theme.colors.white};
+`
+export const StyledPostponeIcon = styled(PostponeIcon)`
+  fill: ${({ theme }) => theme.colors.white};
 `

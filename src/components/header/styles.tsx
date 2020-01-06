@@ -1,4 +1,5 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from '../../utils/styled'
+import { BurgerMenuIcon, Loader, TodayIcon } from '../icons'
 
 // impossible to type successfully with attrs
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,7 +33,7 @@ export const Top = styled.div`
   position: relative;
   text-align: center;
 `
-export const BurgerMenu = styled.svg`
+export const StyledBurgerMenuIcon = styled(BurgerMenuIcon)`
   position: absolute;
   left: 0;
   top: 0.0625rem;
@@ -45,7 +46,7 @@ export const CurrentMonth = styled.div`
   height: 100%;
   margin-top: 0.5rem;
 `
-export const TodayCalendar = styled.svg`
+export const StyledTodayIcon = styled(TodayIcon)`
   position: absolute;
   right: 0;
   top: 0.1875rem;
@@ -57,6 +58,9 @@ export const TodayCalendar = styled.svg`
 export const ExtandableWrapper = styled.div`
   position: relative;
   height: inherit;
+`
+export const StyledLoader = styled(Loader)`
+  margin: auto;
 `
 
 /**

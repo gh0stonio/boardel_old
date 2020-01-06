@@ -4,10 +4,9 @@ import React, { useState, useEffect } from 'react'
 import { db } from '../../utils/firebase'
 import useAuth from '../../hooks/useAuth'
 import { useStore } from '../../hooks/useStore'
-import { Loader } from '../shared'
 import Empty from '../empty'
 import Task from '../task'
-import { LoaderWrapper, Wrapper } from './styles'
+import { LoaderWrapper, StyledLoader, Wrapper } from './styles'
 
 const List: React.FC = () => {
   const user = useAuth()
@@ -46,7 +45,7 @@ const List: React.FC = () => {
     <Wrapper>
       {loading ? (
         <LoaderWrapper>
-          <Loader width="6rem" height="6rem" />
+          <StyledLoader width="6rem" height="6rem" />
         </LoaderWrapper>
       ) : tasks.length > 0 ? (
         tasks.map(task => <Task key={task.id} task={task} />)

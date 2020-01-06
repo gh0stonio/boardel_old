@@ -5,13 +5,14 @@ import {
   DoneContent,
   PostponeContent,
   SideElementWrapper,
+  StyledDoneIcon,
+  StyledPostponeIcon,
   TaskCategory,
   TaskContainer,
   TaskDescription,
   TaskFooter,
   TaskLabel,
 } from './styles'
-import { DoneIcon, PostponeIcon } from '../icons'
 
 const Task: React.FC<{ task: Task }> = ({ task }) => {
   const MainElement = useMemo(
@@ -28,7 +29,7 @@ const Task: React.FC<{ task: Task }> = ({ task }) => {
   const Postpone = ({ opacity }: { isActive: boolean; opacity: number }) => (
     <SideElementWrapper>
       <PostponeContent opacity={opacity}>
-        <PostponeIcon />
+        <StyledPostponeIcon />
         Postpone
       </PostponeContent>
     </SideElementWrapper>
@@ -36,7 +37,7 @@ const Task: React.FC<{ task: Task }> = ({ task }) => {
   const Done = ({ opacity }: { isActive: boolean; opacity: number }) => (
     <SideElementWrapper>
       <DoneContent opacity={opacity}>
-        <DoneIcon />
+        <StyledDoneIcon />
         Done
       </DoneContent>
     </SideElementWrapper>
