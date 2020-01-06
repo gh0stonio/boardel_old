@@ -24,6 +24,10 @@ const theme = {
       personal: '#00b0d4',
       professional: '#33ce78',
     },
+    actions: {
+      postpone: '#ff9a2c',
+      done: '#59ad66',
+    },
   },
 }
 const GlobalStyle = createGlobalStyle`

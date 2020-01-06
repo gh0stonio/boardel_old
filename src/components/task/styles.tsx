@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const TaskContainer = styled.div`
   position: relative;
   background-color: ${({ theme }) => theme.colors.white};
-  margin: 1rem 1.5rem;
+  margin: 0.7rem 1.5rem;
   border-radius: 10px;
   box-shadow: 0px 2px 5px ${({ theme }) => theme.colors.darkGrey};
 `
@@ -43,4 +43,33 @@ export const TaskDescription = styled.div`
 `
 export const TaskFooter = styled.div`
   min-height: 1.5rem;
+`
+
+export const SideElementWrapper = styled.div`
+  background-color: ${({ theme }) => theme.colors.grey};
+  width: 4.5rem;
+  height: 100%;
+  font-size: 0.7rem;
+`
+const SideElementContent = styled.div.attrs(({ opacity }: { opacity: number }): any => ({
+  style: {
+    opacity,
+  },
+}))`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: ${({ theme }) => theme.colors.white};
+  border-radius: 10px;
+  border-radius: 10px;
+  height: calc(100% - 1.4rem);
+`
+export const PostponeContent = styled(SideElementContent)`
+  background-color: ${({ theme }) => theme.colors.actions.postpone};
+  margin: 0.7rem -0.5rem 0.7rem 1rem;
+`
+export const DoneContent = styled(SideElementContent)`
+  background-color: ${({ theme }) => theme.colors.actions.done};
+  margin: 0.7rem 1rem 0.7rem -0.5rem;
 `

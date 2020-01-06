@@ -46,7 +46,8 @@
     "next-offline": "^4.0.6",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "styled-components": "^4.4.1"
+    "styled-components": "^4.4.1",
+    "swippy": "^1.2.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",

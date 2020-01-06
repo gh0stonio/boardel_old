@@ -8336,6 +8336,11 @@ supports-color@^6.1.0:
   dependencies:
     has-flag "^3.0.0"
 
+swippy@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/swippy/-/swippy-1.2.0.tgz#a066a46b1c8f6a9ef57656be992fe515145c349c"
+  integrity sha512-Siit/cBjKyu3nziQSEfC8eatsFp2go3vxxtQ14fE8uoBpirFzfLgH3AO6kepa3upugSrx1qiQBD87iwOTCmEeg==
+
 symbol-observable@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
