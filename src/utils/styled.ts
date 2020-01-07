@@ -18,6 +18,7 @@ export const theme: Theme = {
     blue: '#5779ff',
     white: '#ffffff',
     black: '#000000',
+    red: '#eb2000',
     font: {
       title: '#676879',
       content: '#a4a4a9',

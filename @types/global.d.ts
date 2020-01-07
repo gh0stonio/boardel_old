@@ -9,6 +9,7 @@ declare global {
       blue: string
       white: string
       black: string
+      red: string
       font: {
         title: string
         content: string
@@ -32,10 +33,6 @@ declare global {
     isDone: boolean
     category: Category
     date: moment.Moment
-  }
-
-  enum Category {
-    'personal',
-    'professional',
+    isImportant: boolean
   }
 }
