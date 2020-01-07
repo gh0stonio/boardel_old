@@ -1,6 +1,7 @@
 import React from 'react'
 
 import styled, { css } from '../../utils/styled'
+import { Category } from '../../constants'
 
 /* PAGE STYLES */
 const Wrapper = styled.div`

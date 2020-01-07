@@ -2,29 +2,50 @@ import React, { useMemo } from 'react'
 import Swippy from 'swippy'
 
 import {
+  CommentNumber,
+  CommentSummary,
   DoneContent,
+  PersonalCategoryIcon,
   PostponeContent,
   SideElementWrapper,
   StyledDoneIcon,
   StyledPostponeIcon,
   TaskCategory,
   TaskContainer,
+  TaskContent,
   TaskDescription,
   TaskFooter,
   TaskLabel,
+  TaskPriority,
+  WorkCategoryIcon,
 } from './styles'
+import { BurgerMenuIcon } from '../icons'
+import { theme } from '../../utils/styled'
+import { Category } from '../../constants'
 
 const Task: React.FC<{ task: Task }> = ({ task }) => {
   const MainElement = useMemo(
     () => (
       <TaskContainer>
-        <TaskCategory category={task.category} />
-        <TaskLabel>{task.label}</TaskLabel>
-        <TaskDescription>{task.description}</TaskDescription>
-        <TaskFooter />
+        {task.isImportant && <TaskPriority />}
+        <TaskCategory category={task.category}>
+          {task.category === Category.professional ? <WorkCategoryIcon /> : <PersonalCategoryIcon />}
+        </TaskCategory>
+        <TaskContent>
+          <TaskLabel>
+            <p>{task.label}</p>
+          </TaskLabel>
+          {/* <TaskDescription>{task.description}</TaskDescription> */}
+          <TaskFooter>
+            <CommentSummary>
+              <BurgerMenuIcon width="1.5rem" height="1.5rem" fill={theme.colors.darkestGrey} />
+              <CommentNumber>0</CommentNumber>
+            </CommentSummary>
+          </TaskFooter>
+        </TaskContent>
       </TaskContainer>
     ),
-    [task.category, task.description, task.label],
+    [task.category, task.isImportant, task.label],
   )
   const Postpone = ({ opacity }: { isActive: boolean; opacity: number }) => (
     <SideElementWrapper>
