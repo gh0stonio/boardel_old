@@ -1,7 +1,8 @@
 import React from 'react'
 
+import { useStore } from '#hooks/useStore'
+
 import { Container, StyledSuccessIcon, SuccessText } from './styles'
-import { useStore } from '../../hooks/useStore'
 
 const Empty: React.FC = () => {
   const {

@@ -1,6 +1,10 @@
 import React, { useMemo } from 'react'
 import Swippy from 'swippy'
 
+import { BurgerMenuIcon } from '#components/icons'
+import { Category } from '#constants'
+import { theme } from '#utils/styled'
+
 import {
   CommentNumber,
   CommentSummary,
@@ -18,9 +22,6 @@ import {
   TaskPriority,
   WorkCategoryIcon,
 } from './styles'
-import { BurgerMenuIcon } from '../icons'
-import { theme } from '../../utils/styled'
-import { Category } from '../../constants'
 
 const Task: React.FC<{ task: Task }> = ({ task }) => {
   const MainElement = useMemo(

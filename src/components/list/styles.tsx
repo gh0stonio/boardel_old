@@ -1,5 +1,5 @@
-import styled from '../../utils/styled'
-import { Loader } from '../icons'
+import { Loader } from '#components/icons'
+import styled from '#utils/styled'
 
 export const Wrapper = styled.div`
   width: 100%;

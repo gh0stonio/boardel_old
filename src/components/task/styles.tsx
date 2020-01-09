@@ -1,6 +1,6 @@
-import styled from '../../utils/styled'
-import { DoneIcon, PostponeIcon, WorkIcon, PersonalIcon } from '../icons'
-import { Category } from '../../constants'
+import { DoneIcon, PersonalIcon, PostponeIcon, WorkIcon } from '#components/icons'
+import { Category } from '#constants'
+import styled from '#utils/styled'
 
 export const TaskContainer = styled.div`
   display: flex;
@@ -92,6 +92,8 @@ export const SideElementWrapper = styled.div`
   height: 100%;
   font-size: 0.7rem;
 `
+// impossible to type successfully with attrs
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SideElementContent = styled.div.attrs(({ opacity }: { opacity: number }): any => ({
   style: {
     opacity,
@@ -106,7 +108,7 @@ const SideElementContent = styled.div.attrs(({ opacity }: { opacity: number }): 
   border-radius: 10px;
   height: calc(100% - 1.4rem);
 `
-export const PostponeContent = styled(SideElementContent)`
+export const PostponeContent: typeof SideElementContent = styled(SideElementContent)`
   background-color: ${({ theme }) => theme.colors.actions.postpone};
   margin: 0.7rem -0.5rem 0.7rem 1rem;
 `

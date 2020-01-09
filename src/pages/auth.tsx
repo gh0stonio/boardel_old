@@ -2,9 +2,9 @@ import { NextPage } from 'next'
 import Router from 'next/router'
 import { useEffect, useState } from 'react'
 
-import { Loader } from '../components/icons'
-import firebase from '../utils/firebase'
-import styled from '../utils/styled'
+import { Loader } from '#components/icons'
+import firebase from '#utils/firebase'
+import styled from '#utils/styled'
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.grey};

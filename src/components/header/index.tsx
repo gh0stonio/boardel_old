@@ -1,8 +1,11 @@
-import React, { useState, useMemo, useCallback } from 'react'
 import moment from 'moment'
+import React, { useCallback, useMemo, useState } from 'react'
+
+import { useStore } from '#hooks/useStore'
 
 import {
   Bottom,
+  Calendar,
   Container,
   CurrentMonth,
   DaysNameItem,
@@ -14,9 +17,7 @@ import {
   StyledLoader,
   StyledTodayIcon,
   Top,
-  Calendar,
 } from './styles'
-import { useStore } from '../../hooks/useStore'
 
 const Header: React.FC = () => {
   const {

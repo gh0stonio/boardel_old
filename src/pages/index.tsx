@@ -1,10 +1,10 @@
 import { NextPage } from 'next'
 import Router from 'next/router'
 
-import Header from '../components/header'
-import List from '../components/list'
-import useAuth from '../hooks/useAuth'
-import styled from '../utils/styled'
+import Header from '#components/header'
+import List from '#components/list'
+import useAuth from '#hooks/useAuth'
+import styled from '#utils/styled'
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.grey};

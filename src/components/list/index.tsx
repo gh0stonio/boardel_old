@@ -1,11 +1,12 @@
 import moment from 'moment'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { db } from '../../utils/firebase'
-import useAuth from '../../hooks/useAuth'
-import { useStore } from '../../hooks/useStore'
-import Empty from '../empty'
-import Task from '../task'
+import Empty from '#components/empty'
+import Task from '#components/task'
+import useAuth from '#hooks/useAuth'
+import { useStore } from '#hooks/useStore'
+import { db } from '#utils/firebase'
+
 import { LoaderWrapper, StyledLoader, Wrapper } from './styles'
 
 const List: React.FC = () => {

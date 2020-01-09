@@ -1,5 +1,5 @@
-import styled, { css } from '../../utils/styled'
-import { BurgerMenuIcon, Loader, TodayIcon } from '../icons'
+import { BurgerMenuIcon, Loader, TodayIcon } from '#components/icons'
+import styled, { css } from '#utils/styled'
 
 // impossible to type successfully with attrs
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

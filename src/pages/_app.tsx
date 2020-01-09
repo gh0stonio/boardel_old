@@ -3,8 +3,8 @@ import App from 'next/app'
 import Head from 'next/head'
 import React from 'react'
 
-import { StoreProvider } from '../hooks/useStore'
-import { GlobalStyle, ThemeProvider, theme } from '../utils/styled'
+import { StoreProvider } from '#hooks/useStore'
+import { GlobalStyle, theme, ThemeProvider } from '#utils/styled'
 
 moment.locale('en')
 
