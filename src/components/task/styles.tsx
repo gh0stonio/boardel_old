@@ -26,12 +26,13 @@ export const TaskContent = styled.div`
   flex-direction: column;
   width: 100%;
 `
-export const TaskCategory = styled.div<{ category: Category }>`
+export const TaskCategory = styled.div<{ category: Category; height?: string; width?: string }>`
   position: relative;
   background-color: ${({ theme, category }) => theme.colors.categories[category]};
-  flex-basis: 2.5rem;
-  min-width: 2.5rem;
-  height: 2.5rem;
+  flex-basis: ${({ height }) => height || '2.5rem'};
+  min-width: ${({ width }) => width || '2.5rem'};
+  max-width: ${({ width }) => width || '2.5rem'};
+  height: ${({ height }) => height || '2.5rem'};
   border-radius: 50%;
   margin: auto 1.3rem;
 `
@@ -121,4 +122,82 @@ export const StyledDoneIcon = styled(DoneIcon)`
 `
 export const StyledPostponeIcon = styled(PostponeIcon)`
   fill: ${({ theme }) => theme.colors.white};
+`
+
+// Recap modal
+export const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 99;
+`
+export const Container = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin: 2rem;
+  padding: 1.5rem;
+  width: calc(100% - 7rem);
+  height: calc(100% - 7rem);
+  background-color: ${({ theme }) => theme.colors.grey};
+  z-index: 99;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+`
+export const RecapLabel = styled.div`
+  flex-basis: 3rem;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+
+  &:first-letter {
+    text-transform: capitalize;
+  }
+`
+export const RecapSectionTitle = styled.div`
+  flex-basis: 2rem;
+  margin: 2rem 0 0.2rem 0;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.darkestGrey};
+`
+export const RecapDescriptionContent = styled.div`
+  flex-basis: 8rem;
+  overflow: scroll;
+`
+export const RecapSectionContent = styled.div`
+  flex: 1;
+  overflow: scroll;
+`
+export const RecapCommentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+`
+export const RecapCommentTop = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: ${({ theme }) => theme.colors.darkestGrey};
+  font-style: italic;
+  font-size: 0.9rem;
+
+  svg {
+    margin-right: 1rem;
+  }
+  p {
+    margin: 0 0 0.15rem 0;
+  }
+`
+export const RecapCommentContent = styled.div`
+  margin-left: 2.5rem;
+`
+export const TaskWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.7rem 0 1.75rem 0;
 `

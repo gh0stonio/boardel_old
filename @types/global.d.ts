@@ -34,5 +34,6 @@ declare global {
     category: Category
     date: moment.Moment
     isImportant: boolean
+    comments: { [key: string]: { id: string; content: string; date: moment.Moment } }
   }
 }

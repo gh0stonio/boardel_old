@@ -15,7 +15,7 @@ const List: React.FC = () => {
     state: { selectedDate },
   } = useStore()
   const [loading, setLoading] = useState(true)
-  const [tasks, setTasks] = useState<Task[]>([])
+  const [tasks, setTasks] = useState<{ [key: string]: Task }>(null)
 
   useEffect(() => {
     setLoading(true)
@@ -25,20 +25,41 @@ const List: React.FC = () => {
       .collection('tasks')
       .where('date', '>=', selectedDate.startOf('day').toDate())
       .where('date', '<=', selectedDate.endOf('day').toDate())
-      .onSnapshot(querySnapshot => {
-        const tasksDocs = []
-        querySnapshot.forEach(doc => {
-          const data = doc.data()
+      .onSnapshot(taskQuerySnapshot => {
+        taskQuerySnapshot.forEach(taskDoc => {
+          db.collection('users')
+            .doc(user.uid)
+            .collection('tasks')
+            .doc(taskDoc.id)
+            .collection('comments')
+            .orderBy('date', 'desc')
+            .onSnapshot(commentQuerySnapshot => {
+              const taskData = taskDoc.data()
+              const task: Task = {
+                id: taskDoc.id,
+                label: taskData.label,
+                description: taskData.description,
+                isPostpone: taskData.isPostpone,
+                isDone: taskData.isDone,
+                category: taskData.category,
+                isImportant: taskData.isImportant,
+                date: moment(taskData.date.toDate()),
+                comments: {},
+              }
 
-          tasksDocs.push({
-            ...data,
-            id: doc.id,
-            date: moment(data.date),
-          })
+              commentQuerySnapshot.forEach(commentDoc => {
+                const commentData = commentDoc.data()
+                task.comments[commentDoc.id] = {
+                  id: commentDoc.id,
+                  content: commentData.content,
+                  date: moment(commentData.date.toDate()),
+                }
+              })
+
+              setTasks(tasks => ({ ...tasks, [task.id]: task }))
+              setLoading(false)
+            })
         })
-
-        setTasks(tasksDocs)
-        setLoading(false)
       })
   }, [selectedDate, user.uid])
 
@@ -48,8 +69,8 @@ const List: React.FC = () => {
         <LoaderWrapper>
           <StyledLoader width="6rem" height="6rem" />
         </LoaderWrapper>
-      ) : tasks.length > 0 ? (
-        tasks.map(task => <Task key={task.id} task={task} />)
+      ) : tasks ? (
+        Object.values(tasks).map(task => <Task key={task.id} task={task} />)
       ) : (
         <Empty />
       )}
