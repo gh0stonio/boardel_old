@@ -1,67 +1,100 @@
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import Empty from '#components/empty'
 import Task from '#components/task'
 import useAuth from '#hooks/useAuth'
-import { useStore } from '#hooks/useStore'
+import { setTasks, updateComments } from '#store/reducers/tasks'
+import { getAllTasks, getSelectedDate } from '#store/selectors'
 import { db } from '#utils/firebase'
 
 import { LoaderWrapper, StyledLoader, Wrapper } from './styles'
 
 const List: React.FC = () => {
   const user = useAuth()
-  const {
-    state: { selectedDate },
-  } = useStore()
+  const dispatch = useDispatch()
+  const selectedDate = useSelector(getSelectedDate)
+  const tasks = useSelector(getAllTasks)
   const [loading, setLoading] = useState(true)
-  const [tasks, setTasks] = useState<{ [key: string]: Task }>(null)
 
   useEffect(() => {
     setLoading(true)
 
-    db.collection('users')
+    const userTasksRef = db
+      .collection('users')
       .doc(user.uid)
       .collection('tasks')
+
+    userTasksRef
       .where('date', '>=', selectedDate.startOf('day').toDate())
       .where('date', '<=', selectedDate.endOf('day').toDate())
       .onSnapshot(taskQuerySnapshot => {
+        const getTasksPromises = []
+
         taskQuerySnapshot.forEach(taskDoc => {
-          db.collection('users')
-            .doc(user.uid)
-            .collection('tasks')
+          const taskData = taskDoc.data()
+
+          // get all tasks content
+          getTasksPromises.push(
+            userTasksRef
+              .doc(taskDoc.id)
+              .collection('comments')
+              .orderBy('date', 'desc')
+              .get()
+              .then(commentQuerySnapshot => {
+                const _comments: TaskComment[] = []
+
+                commentQuerySnapshot.forEach(commentDoc => {
+                  const commentData = commentDoc.data()
+                  _comments.push({
+                    id: commentDoc.id,
+                    content: commentData.content,
+                    date: moment(commentData.date.toDate()),
+                  })
+                })
+
+                return {
+                  id: taskDoc.id,
+                  label: taskData.label,
+                  description: taskData.description,
+                  isPostpone: taskData.isPostpone,
+                  isDone: taskData.isDone,
+                  category: taskData.category,
+                  isImportant: taskData.isImportant,
+                  date: moment(taskData.date.toDate()),
+                  comments: _comments,
+                }
+              }),
+          )
+
+          // listen for comments update
+          userTasksRef
             .doc(taskDoc.id)
             .collection('comments')
             .orderBy('date', 'desc')
             .onSnapshot(commentQuerySnapshot => {
-              const taskData = taskDoc.data()
-              const task: Task = {
-                id: taskDoc.id,
-                label: taskData.label,
-                description: taskData.description,
-                isPostpone: taskData.isPostpone,
-                isDone: taskData.isDone,
-                category: taskData.category,
-                isImportant: taskData.isImportant,
-                date: moment(taskData.date.toDate()),
-                comments: {},
-              }
+              const _comments: TaskComment[] = []
 
               commentQuerySnapshot.forEach(commentDoc => {
                 const commentData = commentDoc.data()
-                task.comments[commentDoc.id] = {
+                _comments.push({
                   id: commentDoc.id,
                   content: commentData.content,
                   date: moment(commentData.date.toDate()),
-                }
+                })
               })
 
-              setTasks(tasks => ({ ...tasks, [task.id]: task }))
-              setLoading(false)
+              dispatch(updateComments(taskDoc.id, _comments))
             })
         })
+
+        Promise.all(getTasksPromises).then(tasks => {
+          dispatch(setTasks(tasks))
+          setLoading(false)
+        })
       })
-  }, [selectedDate, user.uid])
+  }, [dispatch, selectedDate, user.uid])
 
   return (
     <Wrapper>
@@ -69,8 +102,8 @@ const List: React.FC = () => {
         <LoaderWrapper>
           <StyledLoader width="6rem" height="6rem" />
         </LoaderWrapper>
-      ) : tasks ? (
-        Object.values(tasks).map(task => <Task key={task.id} task={task} />)
+      ) : tasks.length > 0 ? (
+        tasks.map(task => <Task key={task.id} task={task} />)
       ) : (
         <Empty />
       )}

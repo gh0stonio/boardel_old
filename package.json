@@ -46,6 +46,8 @@
     "next-offline": "^4.0.6",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-redux": "^7.1.3",
+    "redux": "^4.0.5",
     "styled-components": "^4.4.1",
     "swippy": "^1.2.0"
   },
@@ -54,6 +56,8 @@
     "@commitlint/config-conventional": "^8.2.0",
     "@types/node": "^12.12.14",
     "@types/react": "^16.9.15",
+    "@types/react-redux": "^7.1.5",
+    "@types/redux-logger": "^3.0.7",
     "@types/styled-components": "^4.4.0",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
@@ -71,6 +75,7 @@
     "husky": "^3.1.0",
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
+    "redux-logger": "^3.0.6",
     "typescript": "^3.7.3",
     "version-bump-prompt": "^5.0.6"
   },

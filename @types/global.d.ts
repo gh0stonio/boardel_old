@@ -34,6 +34,8 @@ declare global {
     category: Category
     date: moment.Moment
     isImportant: boolean
-    comments: { [key: string]: { id: string; content: string; date: moment.Moment } }
+    comments: TaskComment[]
   }
+
+  type TaskComment = { id: string; content: string; date: moment.Moment }
 }

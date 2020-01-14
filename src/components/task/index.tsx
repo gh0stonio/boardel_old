@@ -1,8 +1,10 @@
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import Swippy from 'swippy'
 
 import { BurgerMenuIcon } from '#components/icons'
 import { Category } from '#constants'
+import useAuth from '#hooks/useAuth'
+import { db } from '#utils/firebase'
 import { theme } from '#utils/styled'
 
 import {
@@ -34,7 +36,16 @@ import {
 } from './styles'
 
 const Task: React.FC<{ task: Task }> = ({ task }) => {
+  const user = useAuth()
   const [showRecap, setShowRecap] = useState(false)
+
+  const postpone = useCallback(() => {
+    db.collection('users')
+      .doc(user.uid)
+      .collection('tasks')
+      .doc(task.id)
+      .update({ date: task.date.add(1, 'd').toDate(), isPostpone: true })
+  }, [task.date, task.id, user.uid])
 
   const Recap: React.FC = () => {
     return (
@@ -54,7 +65,7 @@ const Task: React.FC<{ task: Task }> = ({ task }) => {
           <RecapDescriptionContent>{task.description}</RecapDescriptionContent>
           <RecapSectionTitle>Comments</RecapSectionTitle>
           <RecapSectionContent>
-            {Object.values(task.comments).map(comment => (
+            {task.comments.map(comment => (
               <RecapCommentWrapper key={comment.id}>
                 <RecapCommentTop>
                   <BurgerMenuIcon width="1.5rem" height="1.5rem" fill={theme.colors.darkestGrey} />
@@ -83,7 +94,7 @@ const Task: React.FC<{ task: Task }> = ({ task }) => {
           <TaskFooter>
             <CommentSummary>
               <BurgerMenuIcon width="1.5rem" height="1.5rem" fill={theme.colors.darkestGrey} />
-              <CommentNumber>{Object.keys(task.comments).length}</CommentNumber>
+              <CommentNumber>{task.comments.length}</CommentNumber>
             </CommentSummary>
           </TaskFooter>
         </TaskContent>
@@ -112,6 +123,7 @@ const Task: React.FC<{ task: Task }> = ({ task }) => {
     <>
       {showRecap && <Recap />}
       <Swippy
+        leftAction={postpone}
         mainElement={MainElement}
         renderLeftElement={(isActive, opacity) => <Postpone isActive={isActive} opacity={opacity} />}
         renderRightElement={(isActive, opacity) => <Done isActive={isActive} opacity={opacity} />}

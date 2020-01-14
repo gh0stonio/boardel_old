@@ -1,7 +1,9 @@
 import moment from 'moment'
 import React, { useCallback, useMemo, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { useStore } from '#hooks/useStore'
+import { changeDate } from '#store/reducers/date'
+import { getSelectedDate } from '#store/selectors'
 
 import {
   Bottom,
@@ -20,11 +22,8 @@ import {
 } from './styles'
 
 const Header: React.FC = () => {
-  const {
-    state: { selectedDate },
-    dispatch,
-    actions: { changeDate },
-  } = useStore()
+  const dispatch = useDispatch()
+  const selectedDate = useSelector(getSelectedDate)
 
   /**
    * Handling dragging menu
@@ -61,7 +60,7 @@ const Header: React.FC = () => {
     setExtraHeight(0)
     setIsOpen(false)
     dispatch(changeDate(moment()))
-  }, [changeDate, dispatch])
+  }, [dispatch])
   const weekDays: moment.Moment[] = useMemo(() => {
     const days = []
 

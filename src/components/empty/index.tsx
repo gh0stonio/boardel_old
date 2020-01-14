@@ -1,13 +1,12 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
-import { useStore } from '#hooks/useStore'
+import { getIsToday } from '#store/selectors'
 
 import { Container, StyledSuccessIcon, SuccessText } from './styles'
 
 const Empty: React.FC = () => {
-  const {
-    state: { isToday },
-  } = useStore()
+  const isToday = useSelector(getIsToday)
 
   return (
     <Container>
