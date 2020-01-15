@@ -3,20 +3,28 @@ import { Reducer } from 'redux'
 /**
  * ACTIONS
  */
+const SET_IS_LOADING = 'SET_IS_LOADING'
 const SET_TASKS = 'SET_TASKS'
 const UPDATE_COMMENTS = 'UPDATE_COMMENTS'
 
 /**
  * TYPES
  */
-export type State = { list: Task[] }
-type Action = UpdateTaskAction | SetTasksAction
+export type State = { isLoading: boolean; list: Task[] }
+type Action = UpdateTaskAction | SetTasksAction | SetIsLoadingAction
+type SetIsLoadingAction = { type: typeof SET_IS_LOADING; payload: { isLoading: boolean } }
 type SetTasksAction = { type: typeof SET_TASKS; payload: { tasks: Task[] } }
 type UpdateTaskAction = { type: typeof UPDATE_COMMENTS; payload: { taskId: string; comments: TaskComment[] } }
 
 /**
  * ACTIONS CREATORS
  */
+export const setIsLoading = (isLoading: boolean) => ({
+  type: SET_IS_LOADING,
+  payload: {
+    isLoading,
+  },
+})
 export const setTasks = (tasks: Task[]) => ({
   type: SET_TASKS,
   payload: {
@@ -36,9 +44,13 @@ export const updateComments = (taskId: string, comments: TaskComment[]) => ({
  */
 const initialState: State = {
   list: [],
+  isLoading: true,
 }
 const dateReducer: Reducer<State, Action> = (state = initialState, action) => {
   switch (action.type) {
+    case SET_IS_LOADING: {
+      return { ...state, isLoading: action.payload.isLoading }
+    }
     case SET_TASKS: {
       return { ...state, list: action.payload.tasks }
     }
