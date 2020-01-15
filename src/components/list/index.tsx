@@ -21,12 +21,13 @@ const List: React.FC = () => {
   useEffect(() => {
     setLoading(true)
 
+    let commentsUnsubscribe = null
     const userTasksRef = db
       .collection('users')
       .doc(user.uid)
       .collection('tasks')
 
-    userTasksRef
+    const tasksUnsubscribe = userTasksRef
       .where('date', '>=', selectedDate.startOf('day').toDate())
       .where('date', '<=', selectedDate.endOf('day').toDate())
       .onSnapshot(taskQuerySnapshot => {
@@ -69,7 +70,7 @@ const List: React.FC = () => {
           )
 
           // listen for comments update
-          userTasksRef
+          commentsUnsubscribe = userTasksRef
             .doc(taskDoc.id)
             .collection('comments')
             .orderBy('date', 'desc')
@@ -94,6 +95,11 @@ const List: React.FC = () => {
           setLoading(false)
         })
       })
+
+    return () => {
+      tasksUnsubscribe()
+      if (commentsUnsubscribe) commentsUnsubscribe()
+    }
   }, [dispatch, selectedDate, user.uid])
 
   return (
